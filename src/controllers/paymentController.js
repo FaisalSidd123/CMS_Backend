@@ -49,11 +49,11 @@ export const getPayment = async (req, res, next) => {
 // @route   POST /api/payments
 export const createPayment = async (req, res, next) => {
   try {
-    const { vehicle_id, lead_id, amount, payment_method, payment_status, due_date, paid_at } = req.body;
+    const { vehicle_id, lead_id, amount, payment_method, payment_status, due_date, paid_at, reservation_id } = req.body;
 
     const { data, error } = await supabase
       .from('payments')
-      .insert([{ vehicle_id, lead_id, amount, payment_method, payment_status, due_date, paid_at }])
+      .insert([{ vehicle_id, lead_id, amount, payment_method, payment_status, due_date, paid_at, reservation_id }])
       .select()
       .single();
 
@@ -78,11 +78,11 @@ export const createPayment = async (req, res, next) => {
 export const updatePayment = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { vehicle_id, lead_id, amount, payment_method, payment_status, due_date, paid_at } = req.body;
+    const { vehicle_id, lead_id, amount, payment_method, payment_status, due_date, paid_at, reservation_id } = req.body;
 
     const { data, error } = await supabase
       .from('payments')
-      .update({ vehicle_id, lead_id, amount, payment_method, payment_status, due_date, paid_at })
+      .update({ vehicle_id, lead_id, amount, payment_method, payment_status, due_date, paid_at, reservation_id })
       .eq('id', id)
       .select()
       .maybeSingle();
