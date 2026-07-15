@@ -8,6 +8,7 @@ import serviceRoutes from './serviceRoutes.js';
 import agentRoutes from './agentRoutes.js';
 import importRoutes from './importRoutes.js';
 import documentRoutes from './documentRoutes.js';
+import uploadRoutes from './uploadRoutes.js';
 
 const router = express.Router();
 
@@ -21,5 +22,6 @@ router.use('/service', serviceRoutes);
 router.use('/agents', agentRoutes);
 router.use('/imports', importRoutes);
 router.use('/documents', documentRoutes);
+router.use('/upload', uploadRoutes);
 
 export default router;
