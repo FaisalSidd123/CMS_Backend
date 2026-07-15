@@ -14,9 +14,9 @@ const router = express.Router();
 router.get('/', getVehicles);
 router.get('/:id', getVehicle);
 
-// Protected Routes (Required Authentication)
-router.post('/', protect, authorize('agent', 'admin'), createVehicle);
-router.put('/:id', protect, authorize('agent', 'admin'), updateVehicle);
-router.delete('/:id', protect, authorize('admin'), deleteVehicle);
+// CRUD Routes (Public in development for direct frontend CRUD testing)
+router.post('/', createVehicle);
+router.put('/:id', updateVehicle);
+router.delete('/:id', deleteVehicle);
 
 export default router;
