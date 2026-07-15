@@ -49,7 +49,7 @@ export const getReservation = async (req, res, next) => {
 // @route   POST /api/reservations
 export const createReservation = async (req, res, next) => {
   try {
-    const { vehicle_id, lead_id, agent_id, deposit_amount, status, hold_expires_at } = req.body;
+    const { vehicle_id, lead_id, agent_id, deposit_amount, status, hold_expires_at, cancellation_reason } = req.body;
 
     // Check if vehicle exists and is available
     const { data: vehicle, error: vErr } = await supabase
@@ -63,7 +63,7 @@ export const createReservation = async (req, res, next) => {
 
     const { data, error } = await supabase
       .from('reservations')
-      .insert([{ vehicle_id, lead_id, agent_id, deposit_amount, status, hold_expires_at }])
+      .insert([{ vehicle_id, lead_id, agent_id, deposit_amount, status, hold_expires_at, cancellation_reason: cancellation_reason || null }])
       .select()
       .single();
 
@@ -86,11 +86,11 @@ export const createReservation = async (req, res, next) => {
 export const updateReservation = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { vehicle_id, lead_id, agent_id, deposit_amount, status, hold_expires_at } = req.body;
+    const { vehicle_id, lead_id, agent_id, deposit_amount, status, hold_expires_at, cancellation_reason } = req.body;
 
     const { data, error } = await supabase
       .from('reservations')
-      .update({ vehicle_id, lead_id, agent_id, deposit_amount, status, hold_expires_at })
+      .update({ vehicle_id, lead_id, agent_id, deposit_amount, status, hold_expires_at, cancellation_reason })
       .eq('id', id)
       .select()
       .maybeSingle();
