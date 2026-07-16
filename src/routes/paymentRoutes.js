@@ -6,16 +6,17 @@ import {
   updatePayment, 
   deletePayment 
 } from '../controllers/paymentController.js';
+import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
 router.route('/')
   .get(getPayments)
-  .post(createPayment);
+  .post(protect, authorize('admin'), createPayment);
 
 router.route('/:id')
   .get(getPayment)
-  .put(updatePayment)
-  .delete(deletePayment);
+  .put(protect, authorize('admin'), updatePayment)
+  .delete(protect, authorize('admin'), deletePayment);
 
 export default router;

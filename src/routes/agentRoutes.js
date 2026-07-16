@@ -6,16 +6,17 @@ import {
   updateAgent, 
   deleteAgent 
 } from '../controllers/agentController.js';
+import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
 router.route('/')
   .get(getAgents)
-  .post(createAgent);
+  .post(protect, authorize('admin'), createAgent);
 
 router.route('/:id')
   .get(getAgent)
-  .put(updateAgent)
-  .delete(deleteAgent);
+  .put(protect, authorize('admin'), updateAgent)
+  .delete(protect, authorize('admin'), deleteAgent);
 
 export default router;

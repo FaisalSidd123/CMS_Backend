@@ -14,9 +14,9 @@ const router = express.Router();
 router.get('/', getVehicles);
 router.get('/:id', getVehicle);
 
-// CRUD Routes (Public in development for direct frontend CRUD testing)
-router.post('/', createVehicle);
-router.put('/:id', updateVehicle);
-router.delete('/:id', deleteVehicle);
+// Protected Admin CRUD Routes
+router.post('/', protect, authorize('admin'), createVehicle);
+router.put('/:id', protect, authorize('admin'), updateVehicle);
+router.delete('/:id', protect, authorize('admin'), deleteVehicle);
 
 export default router;

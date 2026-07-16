@@ -6,16 +6,17 @@ import {
   updateReservation, 
   deleteReservation 
 } from '../controllers/reservationController.js';
+import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
 router.route('/')
   .get(getReservations)
-  .post(createReservation);
+  .post(protect, authorize('admin'), createReservation);
 
 router.route('/:id')
   .get(getReservation)
-  .put(updateReservation)
-  .delete(deleteReservation);
+  .put(protect, authorize('admin'), updateReservation)
+  .delete(protect, authorize('admin'), deleteReservation);
 
 export default router;

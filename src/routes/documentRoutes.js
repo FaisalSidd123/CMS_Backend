@@ -6,16 +6,17 @@ import {
   updateDocument, 
   deleteDocument 
 } from '../controllers/documentController.js';
+import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
 router.route('/')
   .get(getDocuments)
-  .post(createDocument);
+  .post(protect, authorize('admin'), createDocument);
 
 router.route('/:id')
   .get(getDocument)
-  .put(updateDocument)
-  .delete(deleteDocument);
+  .put(protect, authorize('admin'), updateDocument)
+  .delete(protect, authorize('admin'), deleteDocument);
 
 export default router;
