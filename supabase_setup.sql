@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS vehicles (
   model text NOT NULL,
   year integer NOT NULL,
   price numeric(12, 2) NOT NULL,            -- Stored as numeric for comparison/sorting (e.g. 68000.00)
+  base_price numeric(12, 2) NOT NULL DEFAULT 0.00, -- Wholesale dealer acquisition cost
   mileage integer NOT NULL,                 -- Stored as integer for range queries (e.g. 12400)
   body_type text NOT NULL,                  -- e.g. 'Coupe', 'SUV', 'Sedan'
   color text,                               -- e.g. 'Guards Red'

@@ -10,6 +10,7 @@ const mapToCamelCase = (v) => {
     model: v.model,
     year: v.year,
     price: typeof v.price === 'number' ? `$${Math.round(v.price).toLocaleString()}` : v.price,
+    basePrice: typeof v.base_price === 'number' ? `$${Math.round(v.base_price).toLocaleString()}` : v.base_price,
     mileage: typeof v.mileage === 'number' ? `${Math.round(v.mileage).toLocaleString()} mi` : v.mileage,
     bodyType: v.body_type,
     color: v.color,
@@ -36,6 +37,14 @@ const mapToSnakeCase = (body) => {
       ? parseFloat(body.price.replace(/[$,]/g, '')) 
       : body.price;
     result.price = isNaN(rawPrice) ? 0 : rawPrice;
+  }
+
+  if (body.basePrice !== undefined) {
+    // Parse numeric value (e.g. "$45,000" -> 45000)
+    const rawBasePrice = typeof body.basePrice === 'string' 
+      ? parseFloat(body.basePrice.replace(/[$,]/g, '')) 
+      : body.basePrice;
+    result.base_price = isNaN(rawBasePrice) ? 0 : rawBasePrice;
   }
   
   if (body.mileage !== undefined) {
